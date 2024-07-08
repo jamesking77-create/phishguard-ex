@@ -35,7 +35,7 @@ function checkEmailForPhishing(emailContent) {
         if (data.malicious) {
             chrome.notifications.create({
                 type: 'basic',
-                iconUrl: 'icons/icon48.png',
+                iconUrl: 'icons/icon64.png',
                 title: 'Malicious Email Detected',
                 message: 'A potentially harmful email was detected and moved to trash.',
                 buttons: [{ title: 'View' }]
