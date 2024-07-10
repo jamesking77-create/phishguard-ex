@@ -7,19 +7,20 @@
     <style>
         body {
             display: flex;
+            width: 300px;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background: linear-gradient(135deg, #2b5876, #4e4376);
-            font-family: 'Arial', sans-serif;
+            font-family: 'Brush Script MT';
             color: #ffffff;
             margin: 0;
-        }
+        } 
+        
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
+            background: transparent;
             padding: 20px;
-            border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             text-align: center;
@@ -53,7 +54,7 @@
         }
     </style>
 </head>
-<body>
+<body class="stcontainer">
     <div class="container">
         <h1>PhishGuard</h1>
         <button id="authButton">Authenticate</button>
