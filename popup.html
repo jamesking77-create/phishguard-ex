@@ -1,29 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PhishGuard</title>
-    <style>
-        body {
-            width: 300px;
-            font-family: Arial, sans-serif;
-        }
-        #container {
-            padding: 10px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            font-size: 16px;
-        }
-    </style>
+    <title>Phishing Detection</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container">
-        <h1>PhishGuard</h1>
-        <button id="checkEmailsBtn">Check Emails for Phishing</button>
-        <div id="status"></div>
-    </div>
+    <h1>Phishing Detection</h1>
+    <form id="credentials-form">
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Start Detection">
+    </form>
+    <p id="status"></p>
     <script src="popup.js"></script>
 </body>
 </html>

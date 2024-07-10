@@ -1,18 +1,10 @@
-// popup.js
-document.addEventListener('DOMContentLoaded', function() {
-    const checkEmailsBtn = document.getElementById('checkEmailsBtn');
-    const statusDiv = document.getElementById('status');
+document.getElementById('credentials-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
 
-    checkEmailsBtn.addEventListener('click', function() {
-        statusDiv.textContent = 'Checking emails for phishing...';
-
-        // Send a message to the background script to check emails
-        chrome.runtime.sendMessage({ action: 'checkEmails' }, function(response) {
-            if (response && response.status === 'success') {
-                statusDiv.textContent = 'Emails checked successfully!';
-            } else {
-                statusDiv.textContent = 'Failed to check emails.';
-            }
-        });
+    chrome.storage.local.set({email: email, password: password}, function() {
+        document.getElementById('status').textContent = 'Phishing detection started.';
+        chrome.runtime.sendMessage({type: 'start_detection'});
     });
 });
