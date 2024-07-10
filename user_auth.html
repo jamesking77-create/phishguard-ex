@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .auth-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .auth-container input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .auth-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4e4376;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .auth-container button:hover {
+            background: #2b5876;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h1>User Authentication</h1>
+        <form id="authForm">
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="appPassword" name="appPassword" placeholder="Application-Specific Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('authForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const appPassword = document.getElementById('appPassword').value;
+
+            fetch('http://localhost:5000/start_detection', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, password: appPassword })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.parent.postMessage('authenticated', '*');
+                } else {
+                    alert('Authentication failed. Please check your credentials.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
