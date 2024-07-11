@@ -11,19 +11,15 @@ document.getElementById('authForm').addEventListener('submit', function(event) {
         body: JSON.stringify({ email: email, password: appPassword })
     })
     .then(response => response.json())
-    .then(data => {
-        const feedbackElement = document.getElementById('feedback');
-        if (data.success) {
-            window.parent.postMessage('authenticated', '*');
-            feedbackElement.style.color = 'green';
-            feedbackElement.textContent = 'Authentication successful!';
-        } else {
-            feedbackElement.style.color = 'red';
-            feedbackElement.textContent = `Authentication failed: ${data.error}`;
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('feedback').textContent = 'An error occurred. Please try again.';
+            .then(data => {
+                if (data.success) {
+                    window.parent.postMessage('authenticated', '*');
+                } else {
+                    feedbackElement.textContent = 'Authentication failed: ' + data.error;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                feedbackElement.textContent = 'An error occurred. Please try again.';
     });
 });
