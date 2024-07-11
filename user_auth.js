@@ -12,13 +12,18 @@ document.getElementById('authForm').addEventListener('submit', function(event) {
     })
     .then(response => response.json())
     .then(data => {
+        const feedbackElement = document.getElementById('feedback');
         if (data.success) {
             window.parent.postMessage('authenticated', '*');
+            feedbackElement.style.color = 'green';
+            feedbackElement.textContent = 'Authentication successful!';
         } else {
-            alert('Authentication failed. Please check your credentials.');
+            feedbackElement.style.color = 'red';
+            feedbackElement.textContent = `Authentication failed: ${data.error}`;
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        document.getElementById('feedback').textContent = 'An error occurred. Please try again.';
     });
 });
