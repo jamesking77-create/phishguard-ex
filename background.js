@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === 'start_detection') {
         chrome.storage.local.get(['email', 'password'], function(result) {
-            fetch('http://127.0.0.1:5000/start_detection', {
+            fetch('http://127.0.0.1:5000/start_detection',  {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
