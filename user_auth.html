@@ -10,44 +10,27 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #2b5876, #4e4376);
-            font-family: 'Brush Script MT';
-            color: #ffffff;
-            margin: 0;
+            background: #2b5876;
+            font-family: Arial, sans-serif;
         }
 
-        .auth-container {
-            background: rgba(255, 255, 255, 0.1);
+        .container {
+            background: #2b5876;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
             text-align: center;
         }
 
-        .auth-container h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #ffffff;
-        }
-
-        .auth-container input {
-            width: 100%;
-            padding: 10px;
+        .container input {
+            display: block;
             margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .auth-container input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .auth-container button {
+        .container button {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -58,27 +41,27 @@
             transition: background 0.3s ease;
         }
 
-        .auth-container button:hover {
+        .container button:hover {
             background: #2b5876;
         }
 
-        .feedback {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #ffcccb; /* Light red color for error messages */
+        #feedback {
+            margin-top: 20px;
+            font-size: 16px;
+            color: red;
         }
     </style>
 </head>
 <body>
-    <div class="auth-container">
-        <h1>User Authentication</h1>
+    <div class="container">
         <form id="authForm">
-            <input type="email" id="email" name="email" placeholder="Email" required>
-            <input type="password" id="appPassword" name="appPassword" placeholder="Application-Specific Password" required>
-            <button type="submit">Login</button>
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="password" id="appPassword" placeholder="App Password" required />
+            <button type="submit">Authenticate</button>
         </form>
-        <div id="feedback" class="feedback"></div>
+        <div id="feedback"></div>
     </div>
 
+    <script src="user_auth.js"></script>
 </body>
 </html>
