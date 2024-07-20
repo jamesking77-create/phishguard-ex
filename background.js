@@ -1,38 +1,19 @@
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Background service worker installed.');
-  });
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.alarms.create("checkEmails", { periodInMinutes: 3 });
+});
 
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === 'start_detection') {
-        chrome.storage.local.get(['email', 'password'], function(result) {
-            fetch('http://127.0.0.1:5000/start_detection',  {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: result.email,
-                    password: result.password
-                })
-            }).then(response => response.json())
+chrome.alarms.onAlarm.addListener(function(alarm) {
+    if (alarm.name === "checkEmails") {
+        fetch('http://localhost:5000/scan-emails')
+            .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    chrome.notifications.create({
-                        type: 'basic',
-                        iconUrl: 'images/icon-48.png',
-                        title: 'Phishing Detection',
-                        message: 'Phishing detection started successfully!'
-                    });
+                if (data.malicious_emails && data.malicious_emails.length > 0) {
+                    console.log('Malicious emails found:', data.malicious_emails);
+                    // You can add logic to notify the user or handle the malicious emails
                 } else {
-                    chrome.notifications.create({
-                        type: 'basic',
-                        iconUrl: 'images/icon-48.png',
-                        title: 'Phishing Detection',
-                        message: 'Failed to start phishing detection.'
-                    });
+                    console.log('No malicious emails found.');
                 }
-            });
-        });
+            })
+            .catch(error => console.error('Error scanning emails:', error));
     }
 });

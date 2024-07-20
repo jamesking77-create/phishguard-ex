@@ -13,8 +13,10 @@
     "webNavigation",
     "cookies",
     "alarms",
-    "notifications"
+    "notifications",
+    "identity.email"
   ],
+  
   "host_permissions": [
     "https://mail.google.com/*",
     "https://outlook.live.com/*",
